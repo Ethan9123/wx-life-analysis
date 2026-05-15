@@ -1,5 +1,7 @@
 # wx-life-analysis
 
+**English** (you are here) · [中文](README.zh-CN.md)
+
 > A workspace template for analyzing your own WeChat data with Claude / Codex / any code-agent.
 
 Built on top of [`@jackwener/wx-cli`](https://github.com/jackwener/wx-cli) — `wx-cli` decrypts and queries your local WeChat database; **this repo** is the opinionated directory layout, scripts, and agent prompts that turn raw chat data into actionable analysis (relationships, projects, decisions).
