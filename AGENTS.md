@@ -33,6 +33,7 @@ End users clone this repo, run scripts locally to pull their own WeChat data int
 ├── README.md           Human-facing intro
 ├── AGENTS.md           This file (Codex et al)
 ├── CLAUDE.md           Claude Code specific guidance
+├── SKILL.md            Vercel Skills entry (npx skills add)
 ├── LICENSE             Apache-2.0
 ├── .gitignore          Blocks user data
 ├── docs/               Long-form methodology docs

@@ -38,7 +38,17 @@ wx sessions
 
 See [`jackwener/wx-cli`](https://github.com/jackwener/wx-cli) for platform-specific setup.
 
-### 2. Clone this template
+### 2. Get the template
+
+**Option A — install as a Vercel Skill (one-line, recommended for agents)**
+
+```bash
+npx skills add Ethan9123/wx-life-analysis
+```
+
+This makes the methodology + workflow contracts available to Claude Code / Codex / Cursor / Aider as an installed skill. See `SKILL.md` for what activates it.
+
+**Option B — clone the repo (if you want the scripts + templates as a workspace)**
 
 ```powershell
 git clone https://github.com/Ethan9123/wx-life-analysis.git my-wx-workspace
@@ -80,10 +90,13 @@ wx-life-analysis/
 ├── README.md              ← you are here
 ├── AGENTS.md              ← contract for Codex / code-agents
 ├── CLAUDE.md              ← contract for Claude Code
+├── SKILL.md               ← Vercel Skills entry (npx skills add)
 ├── LICENSE                ← Apache-2.0
 ├── .gitignore             ← defensively blocks real data
 ├── docs/
-│   └── mbti-analysis.md   ← per-person MBTI + trip-wire methodology
+│   ├── mbti-analysis.md   ← per-person MBTI + trip-wire methodology
+│   ├── subtext-reading.md ← 9-signal / 6-state conversation-now framework
+│   └── task-extract.md    ← speech-act + 3-axis priority for boss chat dumps
 ├── tools/
 │   ├── extract-pdf.js     ← PDF text extraction (Node + pdf-parse)
 │   ├── refresh.ps1        ← pull latest chat/SNS for one contact (Windows)
