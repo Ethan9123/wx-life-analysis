@@ -82,6 +82,8 @@ wx-life-analysis/
 ├── CLAUDE.md              ← contract for Claude Code
 ├── LICENSE                ← Apache-2.0
 ├── .gitignore             ← defensively blocks real data
+├── docs/
+│   └── mbti-analysis.md   ← per-person MBTI + trip-wire methodology
 ├── tools/
 │   ├── extract-pdf.js     ← PDF text extraction (Node + pdf-parse)
 │   ├── refresh.ps1        ← pull latest chat/SNS for one contact (Windows)
@@ -189,6 +191,24 @@ The intended loop:
 2. **Agent**: reads `chat.md`, updates `profile.md` (using the `_template`), suggests next action
 3. **You**: act on it (send a message, schedule something, draft a doc)
 4. **Repeat** weekly or after key events
+
+### Per-person analysis: MBTI + trip wires + comms strategy
+
+When you want a deeper read on someone — what type they are, what topics shut them
+down, how often / in what style to message them — point the agent at
+[`docs/mbti-analysis.md`](docs/mbti-analysis.md). It's a 4-axis scoring framework
+that translates chat-derived signals into:
+
+- **MBTI inference** with explicit confidence level + the signals that support it
+- **Trip wires (雷点)** — observed patterns where they go quiet, redirect, or push back
+- **Comms strategy** — frequency, style, do-list, avoid-list
+
+The output lives in `people/<name>/profile.md` (YAML frontmatter + body section).
+
+If the contact wants to know their own type, share
+[types.learntocode.com.tw](https://types.learntocode.com.tw/) — a self-test is more
+reliable than inferring from chat.
+
 
 For project work (`projects/<name>/`):
 1. Drop the source PDFs / docs into the project folder (gitignored)

@@ -35,10 +35,14 @@ End users clone this repo, run scripts locally to pull their own WeChat data int
 ├── CLAUDE.md           Claude Code specific guidance
 ├── LICENSE             Apache-2.0
 ├── .gitignore          Blocks user data
-├── tools/              Scripts (PowerShell + Node)
+├── docs/               Long-form methodology docs
+│   └── mbti-analysis.md
+├── tools/              Scripts (PowerShell + Bash + Node)
 │   ├── extract-pdf.js
 │   ├── refresh.ps1
-│   └── status.ps1
+│   ├── refresh.sh
+│   ├── status.ps1
+│   └── status.sh
 ├── people/_template/   Profile scaffold
 ├── projects/_template/ Project notes scaffold
 └── .github/workflows/  CI (lint, no-data-leaked checks)
@@ -90,7 +94,7 @@ End users clone this repo, run scripts locally to pull their own WeChat data int
 1. Use placeholder names (`张三`, `Acme Project`).
 2. Mark fillable slots with `<...>` or `TODO:` comments.
 3. Include a `last-updated:` field so staleness is visible.
-4. Use YAML frontmatter with this fixed schema for both templates:
+4. Use YAML frontmatter with this **minimum** fixed schema (read by `tools/status.ps1`):
    ```yaml
    ---
    last-updated: 2026-01-01
@@ -99,6 +103,10 @@ End users clone this repo, run scripts locally to pull their own WeChat data int
    tags: [tag-1, tag-2]
    ---
    ```
+5. Templates MAY extend the frontmatter with type-specific fields. Current extensions:
+   - `people/_template/profile.md` adds `mbti`, `trip-wires`, `comms`. Methodology
+     is documented in `docs/mbti-analysis.md`. Any new field must be additive — never
+     break the minimum schema above, or `status.ps1` parsing fails.
 
 ## PR review checklist (for agents reviewing each other's work)
 

@@ -43,10 +43,16 @@ You'll know because `people/<name>/chat.md` and `projects/<name>/notes.md` will 
 2. Read the new `chat.md` chronologically (most recent first if time-constrained).
 3. Update `people/<dir>/profile.md`:
    - bump `last-updated:` to today
-   - update `球在谁那` (ball-in-court)
-   - update `下次动作` (next action)
+   - update `ball-in-court` (`me` / `them`)
+   - update `next-action`
    - add any new events to the timeline section
-4. If the situation changed materially (new relationship phase, conflict, breakthrough), tell the user explicitly. Don't bury it.
+4. **MBTI + trip wire pass** (see [`docs/mbti-analysis.md`](docs/mbti-analysis.md)):
+   - Score each of the four axes from chat signals; write to `mbti.type` + `mbti.basis`.
+   - Walk the chat for trip wires (reply-latency spikes, length collapse, hard
+     redirects). Record `trip-wires` list.
+   - Translate to `comms.frequency` / `comms.style` / `comms.do` / `comms.avoid`.
+   - Always include a confidence level. Don't fabricate certainty.
+5. If the situation changed materially (new relationship phase, conflict, breakthrough), tell the user explicitly. Don't bury it.
 
 ### Workflow for a project
 
@@ -109,4 +115,5 @@ wx daemon stop; wx new-messages
 | What's the file layout? | `README.md` § Directory layout |
 | How do I add a tool? | `AGENTS.md` § How to add a new tool |
 | What are the hard rules? | `AGENTS.md` § Hard rules |
+| How do I run an MBTI + trip-wire pass on a person? | `docs/mbti-analysis.md` |
 | What's the user's personal context? | `CLAUDE.local.md` (gitignored, only in local clones) |
