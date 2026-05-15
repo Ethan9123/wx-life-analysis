@@ -119,6 +119,7 @@ End users clone this repo, run scripts locally to pull their own WeChat data int
 - [ ] Scripts validate inputs and handle missing `wx.exe`
 - [ ] Docs updated if user-visible behavior changed
 - [ ] `.gitignore` still blocks the file types it should
+- [ ] gitleaks-action passes (custom rules in `.gitleaks.toml`)
 
 ## Out of scope (don't do these)
 

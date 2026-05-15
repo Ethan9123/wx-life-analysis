@@ -281,6 +281,20 @@ The agent files (`AGENTS.md`, `CLAUDE.md`) describe these flows in machine-reada
 
 If you accidentally commit data, follow GitHub's [removing sensitive data](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository) guide and rotate any tokens.
 
+### Personal `.gitleaks.local.toml`
+
+Each fork can keep a private `.gitleaks.local.toml` with additional personal patterns
+(real names, employer domains, custom IDs, etc.). That file is gitignored by default.
+
+To combine the shared baseline and your private rules locally:
+
+```bash
+gitleaks detect --config .gitleaks.toml --config .gitleaks.local.toml
+```
+
+If you want pre-commit style local protection, you can opt in to `gitleaks protect` on
+your machine.
+
 ---
 
 ## Acknowledgments

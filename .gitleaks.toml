@@ -1,0 +1,54 @@
+# Custom gitleaks rules for this repository's PII threat model.
+# Use only placeholders in this file (never real data).
+
+# Global allowlist for known-safe placeholder examples and paths.
+[allowlist]
+description = "Allow placeholder examples and non-source files"
+regexes = [
+  '''\b13800138000\b''',
+  '''\bwxid_example\b''',
+  '''\bexample@example\.com\b''',
+  '''\bnoreply@anthropic\.com\b''',
+  '''\b[A-Za-z0-9._%+-]+@users\.noreply\.github\.com\b''',
+  '''\b[A-Za-z0-9._%+-]+@example\.com\b'''
+]
+paths = [
+  '''(^|/)LICENSE$''',
+  '''\.lock$''',
+  '''^\.git/'''
+]
+
+# Catch mainland China mobile phone numbers that may identify a person.
+[[rules]]
+id = "china-mobile"
+description = "China mobile number"
+regex = '''\b1[3-9]\d{9}\b'''
+tags = ["pii", "phone", "china"]
+
+# Catch WeChat system-generated wxid identifiers.
+[[rules]]
+id = "wechat-wxid"
+description = "WeChat ID (system-generated)"
+regex = '''\bwxid_[a-z0-9]{8,}\b'''
+tags = ["pii", "wechat"]
+
+# Catch WeChat F-account identifiers.
+[[rules]]
+id = "wechat-fid"
+description = "WeChat F-account ID"
+regex = '''\bF\d{12,}_[a-f0-9]{4}\b'''
+tags = ["pii", "wechat-account"]
+
+# Catch generic emails except allowed placeholders and noreply aliases.
+[[rules]]
+id = "generic-email"
+description = "Email outside allowlist"
+regex = '''\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b'''
+tags = ["pii", "email"]
+
+# Catch long lines of Chinese prose that likely contain chat excerpts.
+[[rules]]
+id = "chinese-chat-block"
+description = "50+ chars of consecutive Chinese (likely chat excerpt)"
+regex = '''^[一-龥，。！？；：、“”''…—]{50,}$'''
+tags = ["leak", "chat"]

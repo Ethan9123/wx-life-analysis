@@ -61,5 +61,12 @@ jobs:
             exit 1
           fi
 
+      - name: gitleaks scan
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          config-path: .gitleaks.toml
+        env:
+          GITLEAKS_LICENSE: ''
+
       - name: Lint extract-pdf.js with node --check
         run: node --check tools/extract-pdf.js
