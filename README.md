@@ -147,6 +147,26 @@ wx sns-feed --user "张三" -n 50 --json | Out-File people\zhangsan\sns.json -En
 wx stats "张三" > people\zhangsan\stats.txt
 ```
 
+### Pull a group chat into topics/
+
+**Windows (PowerShell)**
+
+```powershell
+.\tools\refresh-group.ps1 -Name "研发群" -Slug "rd-group"
+.\tools\refresh-group.ps1 -Name "Acme Team Chat" -Slug "acme-team" -SinceDays 30
+.\tools\refresh-group.ps1 -Name "AI讨论" -Slug "ai-discuss" -SinceDate "2026-04-01"
+```
+
+**macOS / Linux (bash)**
+
+```bash
+./tools/refresh-group.sh --name "研发群" --slug "rd-group"
+./tools/refresh-group.sh --name "Acme Team Chat" --slug "acme-team" --since-days 30
+./tools/refresh-group.sh --name "AI讨论" --slug "ai-discuss" --since-date "2026-04-01"
+```
+
+Writes to `topics/<slug>/members.json`, `topics/<slug>/chat.<ext>`, and `topics/<slug>/.last-sync`.
+
 ### Search a topic across all chats
 
 ```powershell

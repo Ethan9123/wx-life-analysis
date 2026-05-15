@@ -64,7 +64,8 @@ You'll know because `people/<name>/chat.md` and `projects/<name>/notes.md` will 
 
 1. Source materials (PDFs, docs) go in `projects/<name>/` (gitignored).
 2. Use `tools/extract-pdf.js` for text extraction.
-2.5 Run `tools/task-extract.ps1 -Person "<task-giver-slug>" -Project "<project-slug>"` for first-pass candidate filtering before full read.
+2.5 If work mainly happens in a group chat, run `tools/refresh-group.ps1 -Name "研发群" -Slug "rd-group"` first to populate `topics/<slug>/chat.json` + `members.json`.
+2.6 Run `tools/task-extract.ps1 -Person "<task-giver-slug>" -Project "<project-slug>"` for first-pass candidate filtering before full read.
 3. Write `projects/<name>/notes.md` with task breakdown by priority (P0/P1/P2/P3).
 4. Optionally generate a `task-plan.html` dashboard for visual scanning.
 5. Track decisions needed from third parties (boss, family, etc.) in a dedicated section.

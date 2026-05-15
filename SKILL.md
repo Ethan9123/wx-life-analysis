@@ -42,6 +42,8 @@ cd my-wx-workspace
 # 4. Pull a contact's data
 ./tools/refresh.sh --name "张三" --dir "people/zhangsan"          # macOS / Linux
 .\tools\refresh.ps1 -Name "张三" -Dir "people/zhangsan"            # Windows
+./tools/refresh-group.sh --name "Acme Team Chat" --slug "acme-team"  # group chat to topics/<slug>/
+.\tools\refresh-group.ps1 -Name "研发群" -Slug "rd-group"              # Windows equivalent
 ```
 
 The agent then reads `AGENTS.md` + `CLAUDE.md` and knows the workflow.
