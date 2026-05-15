@@ -80,14 +80,21 @@ chmod +x tools/refresh.sh
 
 方法学：[`docs/mbti-analysis.md`](docs/mbti-analysis.md)
 
-让 agent 读 `people/<slug>/chat.md` 之后产出：
-- **MBTI 推断**：带置信度（low / medium / high）+ 支持信号清单
+让 agent **同时读两份数据源**：
+- `people/<slug>/chat.md` — 1:1 私聊历史（占 ~70% 信号：ta 怎么跟你说话）
+- `people/<slug>/sns.json` — 朋友圈 / SNS feed（占 ~30% 信号：ta 怎么希望被更大圈子看到）
+
+两份都由 `tools/refresh.ps1` 一次拉好，都在 `.gitignore` 里。交叉对比能产出：
+
+- **MBTI 推断**：带置信度（low / medium / high）+ 来自聊天和朋友圈的支持信号清单
+- **人设分裂识别**：朋友圈里光鲜外向 vs 私聊里疲惫沉默 = 重要的沟通策略信号（不要按 ta 朋友圈的版本去接近 ta）
 - **雷点（trip wires）**：哪些话题会让对方降低回复频率、转移话题或不接你的话
 - **沟通策略**：联系频率 / 风格 / do-list / avoid-list
+- **朋友圈观察**：发帖频率、主导话题、可见的 3+ 个月静默期（通常对应人生事件）、ta 跟你朋友圈的互动模式（点赞 / 评论 / 沉默）
 
-输出会写入 `people/<slug>/profile.md` 的 YAML frontmatter（`tools/status.ps1` 自动读取）和正文章节。
+输出会写入 `people/<slug>/profile.md` 的 YAML frontmatter（`tools/status.ps1` 自动读取）和正文章节，正文额外包含一节 "朋友圈观察"。
 
-如果对方愿意，可以让 ta 亲自做一下 [types.learntocode.com.tw](https://types.learntocode.com.tw/) 的测试 —— 自报类型比你从聊天记录推断更可靠。
+如果对方愿意，可以让 ta 亲自做一下 [types.learntocode.com.tw](https://types.learntocode.com.tw/) 的测试 —— 自报类型比你从聊天和朋友圈推断更可靠。
 
 ### 工作流 2：实时潜台词读取
 

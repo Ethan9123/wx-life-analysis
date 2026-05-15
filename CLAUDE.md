@@ -40,19 +40,19 @@ You'll know because `people/<name>/chat.md` and `projects/<name>/notes.md` will 
 
 ### Workflow for analyzing a person
 
-1. Run `tools/refresh.ps1 -Name "<wechat-name>" -Dir "people/<dir>"` to pull latest chat + SNS.
-2. Read the new `chat.md` chronologically (most recent first if time-constrained).
+1. Run `tools/refresh.ps1 -Name "<wechat-name>" -Dir "people/<dir>"` to pull latest `chat.md` + `sns.json`.
+2. Read `chat.md` chronologically (most recent first if time-constrained), then read `sns.json` separately. Both feed the MBTI inference; both feed the comms-strategy translation. Don't skip the SNS pass — about 30% of useful signal lives there.
 3. Update `people/<dir>/profile.md`:
    - bump `last-updated:` to today
    - update `ball-in-court` (`me` / `them`)
    - update `next-action`
    - add any new events to the timeline section
 4. **MBTI + trip wire pass** (see [`docs/mbti-analysis.md`](docs/mbti-analysis.md)):
-   - Score each of the four axes from chat signals; write to `mbti.type` + `mbti.basis`.
-   - Walk the chat for trip wires (reply-latency spikes, length collapse, hard
-     redirects). Record `trip-wires` list.
+   - Score each of the four axes using **both** chat and SNS signals; write to `mbti.type` + `mbti.basis` (basis should cite specific examples from both sources where applicable).
+   - Walk the chat for trip wires (reply-latency spikes, length collapse, hard redirects). Cross-reference with SNS — surface topics they post about heavily but never bring up with you (often safe to ask) and topics absent from SNS but you know they care about (usually hands-off).
    - Translate to `comms.frequency` / `comms.style` / `comms.do` / `comms.avoid`.
    - Always include a confidence level. Don't fabricate certainty.
+   - In `profile.md` body, maintain a `## 朋友圈观察` section recording: post frequency, dominant topics, visible gaps (3+ month silent = life event), persona-vs-chat delta, and how they interact with your own SNS.
 5. **Subtext pass** (see [`docs/subtext-reading.md`](docs/subtext-reading.md)):
    - Decide one state for *this moment*: 🔥 hot / 🟢 warm / 🟡 mild cool / 🟠 cooling /
      🔴 disengaging / ⚫ gone. **Pick one — no hedging.**

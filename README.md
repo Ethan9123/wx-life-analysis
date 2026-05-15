@@ -278,17 +278,24 @@ The intended loop:
 When you want a deeper read on someone — what type they are, what topics shut them
 down, how often / in what style to message them — point the agent at
 [`docs/mbti-analysis.md`](docs/mbti-analysis.md). It's a 4-axis scoring framework
-that translates chat-derived signals into:
+that reads **two sources together**:
 
-- **MBTI inference** with explicit confidence level + the signals that support it
+- `people/<slug>/chat.md` — private 1:1 history (~70% of signal: how they talk *to you*)
+- `people/<slug>/sns.json` — Moments / SNS feed (~30% of signal: how they want to be *seen by their broader circle*)
+
+Both are produced by `tools/refresh.ps1` (gitignored). Cross-reading them surfaces:
+
+- **MBTI inference** with explicit confidence level + chat- and SNS-derived signals
+- **Persona splits** — if their SNS shows a polished extrovert but chat shows reserved/tired, that's important
 - **Trip wires (雷点)** — observed patterns where they go quiet, redirect, or push back
 - **Comms strategy** — frequency, style, do-list, avoid-list
+- **SNS observations** — post frequency, dominant topics, gaps (3+ month silent stretches often mark life events), interaction patterns with your own posts
 
 The output lives in `people/<name>/profile.md` (YAML frontmatter + body section).
 
 If the contact wants to know their own type, share
 [types.learntocode.com.tw](https://types.learntocode.com.tw/) — a self-test is more
-reliable than inferring from chat.
+reliable than inferring from chat + SNS.
 
 ### Reading the room: subtext detection
 

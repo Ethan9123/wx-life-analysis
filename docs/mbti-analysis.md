@@ -28,6 +28,15 @@ Caveats baked in:
 
 ---
 
+## Input sources
+
+Two data sources, complementary:
+
+1. **`people/<slug>/chat.md`** — private 1:1 history. How they talk *to you specifically*. The strongest signal for trip wires + comms style.
+2. **`people/<slug>/sns.json`** — their Moments / SNS feed (朋友圈). How they want to be *seen by their broader circle*. Adds dichotomy signals that chat alone can miss, plus important persona-split information.
+
+Both files are produced by `tools/refresh.ps1` (or `.sh`). Both are gitignored. Read both before scoring axes — about 70% of signal comes from chat, but the remaining 30% from SNS is often what flips a borderline case.
+
 ## The four dichotomies — what to look for in chat
 
 For each axis, score `+2 / +1 / 0 / -1 / -2` (one side / leaning / unclear / leaning / other).
@@ -75,6 +84,43 @@ Confidence = how strong the signal is, not how extreme the score is.
 | Lists & schedules | Loves them | Treats them as suggestions |
 | Last-minute changes | Frustrates them | No big deal |
 | Closure | "Decided, moving on" | "Let's keep options open" |
+
+---
+
+## Cross-check signals from SNS / Moments (朋友圈)
+
+`sns.json` is their **public self-presentation** — how they curate themselves for a wider audience. It complements `chat.md` in three ways:
+
+1. **Confirms or flips borderline axes.** If chat is mixed E/I, SNS post frequency + comment activity usually settles it.
+2. **Surfaces persona splits.** Some people are very different in public vs in 1:1. If their SNS shows them as a polished extrovert but your chat shows reserved and tired — that's a **persona-split signal**, important for comms strategy (don't approach with the public version of them).
+3. **Reveals safe + unsafe topic territory.** A topic they post about heavily but never bring up with you = something they care about, safe to ask. A topic missing from SNS but you know they care about = they keep private — **trip wire if you bring up unsolicited**.
+
+### Signals by axis (SNS-derived)
+
+| Axis | Points to first letter (E/S/T/J) | Points to second letter (I/N/F/P) |
+|---|---|---|
+| **E ↔ I** | Posts 3+/week, comments on others, large audience | Posts <1/week, mostly read-only, "close friends only" audience |
+| **S ↔ N** | Captions are concrete ("今天在 X 吃了 Y, 好辣"), documentary photos, practical share-links | Captions are abstract ("时间的褶皱里"), aesthetic photos, philosophical essays |
+| **T ↔ F** | Achievements / news / sports / data, sparse emotional disclosure | Mood posts, feelings-named, "for me this means…" framing |
+| **J ↔ P** | Planned recaps ("本月小结" / "年终") / curated trip albums / themed collections | Spontaneous moments ("看到一只猫"), unedited, jumps topic |
+
+### Interaction signals (warmth gauge)
+
+Look at how they interact with *your* SNS (you can check this in the WeChat app; `wx-cli` may not surface it but it's a real signal worth noting in `profile.md` body):
+
+- Likes your posts regularly → warm, comfortable with public association
+- Comments occasionally → warmer
+- Engages with your SNS but never DMs → prefers **public-light contact**, deep DMs feel high-stakes to them
+- Never engages with your SNS but chats 1:1 normally → **compartmentalizes** — don't read silence on SNS as cooling
+- Stopped engaging after a specific date → likely a relationship-level signal, cross-check chat
+
+### Gaps in SNS
+
+A **3+ month silent stretch** in `sns.json` usually marks a life event — illness, breakup, family stress, career change. Note the date range in `profile.md` body. Don't surface it unsolicited; let them bring it up. If they bring up something from that period themselves, you already have context.
+
+### Privacy hard rule for SNS
+
+`sns.json` is **just as private as `chat.md`**. Don't paste SNS captions / photo descriptions / sharing-links outside the local session. The fact that they posted to "all friends" doesn't make it OK to surface in another LLM context. Same gitignore + CI guard applies.
 
 ---
 
@@ -208,13 +254,14 @@ narrative. See `people/_template/profile.md` for the full template.
 
 ## Process — running this on a new person
 
-1. Pull data: `tools/refresh.ps1 -Name "张三" -Dir "people/zhangsan"`
-2. Read `chat.md` chronologically. Note signals as you go.
-3. Score each axis. Don't force a type if signals are mixed — write `"INFP/ENFP"` or `"unclear"`.
-4. Walk the chat again for trip wires. List 2-5.
-5. Translate to comms strategy. Be concrete.
-6. Fill in `profile.md` frontmatter + body section.
-7. **Sanity check**: would this analysis be obvious garbage to the actual person if they read it? If yes, it's probably wrong — keep digging.
+1. Pull data: `tools/refresh.ps1 -Name "张三" -Dir "people/zhangsan"` — produces both `chat.md` AND `sns.json`.
+2. Read `chat.md` chronologically. Note chat-derived signals as you go (about 70% of the picture).
+3. Read `sns.json` separately. Note SNS-derived signals (about 30%) — caption style, post frequency, audience scope, gaps, persona-split vs the chat version of them.
+4. Score each axis using **both** sources. Don't force a type if signals are mixed — write `"INFP/ENFP"` or `"unclear"`. The `mbti.basis` field should cite signals from both chat and SNS where applicable.
+5. Walk the chat for trip wires (2-5). Cross-reference with SNS to surface "they care about X but never bring it up with you" topics — note as either safe-to-ask or hands-off depending on context.
+6. Translate to comms strategy. Be concrete.
+7. Fill in `profile.md` frontmatter + body section. Add an "## 朋友圈观察" / SNS observations section in the body with at least: post frequency, dominant topics, any visible gaps, persona-vs-chat delta.
+8. **Sanity check**: would this analysis be obvious garbage to the actual person if they read it? If yes, it's probably wrong — keep digging.
 
 ---
 
