@@ -63,10 +63,12 @@ jobs:
 
       - name: gitleaks scan
         uses: gitleaks/gitleaks-action@v2
-        with:
-          config-path: .gitleaks.toml
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLEAKS_LICENSE: ''
+        # Note: gitleaks-action@v2 auto-discovers .gitleaks.toml at repo root.
+        # `config-path` is not a valid input; setting it triggers a warning + ignored.
+        # GITHUB_TOKEN is required for pull_request scans (see gitleaks-action README).
 
       - name: Lint extract-pdf.js with node --check
         run: node --check tools/extract-pdf.js
