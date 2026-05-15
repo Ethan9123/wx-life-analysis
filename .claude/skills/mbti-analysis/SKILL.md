@@ -1,0 +1,60 @@
+---
+name: mbti-analysis
+description: Infer a WeChat contact's MBTI type from their chat history, identify trip wires (topics that shut them down), and translate to a concrete comms strategy (frequency, style, do-list, avoid-list). Activate when the user wants to understand what type a contact is, why a conversation cooled, what's safe to bring up, or how often to message them. Reads people/<slug>/chat.md + sns.json and writes to people/<slug>/profile.md YAML frontmatter under mbti / trip-wires / comms fields. Uses observable signals only — reply latency, voice/text ratio, abstract vs concrete language, planning style — never fabricates certainty (always records a confidence level).
+---
+
+# MBTI Analysis Skill
+
+When this skill is loaded, you are running a **per-person personality + comms-strategy analysis** over a contact's WeChat chat history.
+
+**Full methodology**: read [`docs/mbti-analysis.md`](../../../docs/mbti-analysis.md) before producing output. The methodology document defines the 4-axis scoring table, the trip-wire taxonomy, and the comms strategy translation rules.
+
+## Quick reference (don't substitute for reading the methodology)
+
+### Four MBTI axes — what to look for
+
+| Axis | Skew toward first letter | Skew toward second letter |
+|---|---|---|
+| E/I | high message volume, fast replies, voice notes, skims topics | lower volume, batched replies, prefers text, depth dives |
+| S/N | "where/when/how-much" questions, concrete nouns, present-focused | "why/what-if" questions, abstract concepts, future-focused |
+| T/F | logic-first, blunt disagreement, "smart take" praise | empathy-first, cushioned disagreement, "thoughtful" praise |
+| J/P | proposes specific time+place, locked plans, lists | "free this week, you pick", flexible, last-minute OK |
+
+### Confidence required
+
+Always record `mbti.confidence: low | medium | high` plus 2-4 sentences of `mbti.basis` citing **specific data points**, not vibes. If signals are mixed, write `"INFP/ENFP"` or `"unclear"`.
+
+### Trip wires — what shuts them down
+
+Walk the chat for: latency spikes (3-5× baseline), length collapse, hard topic redirect, soft non-answer, "you sound like a bot" meta-critique. Need 2+ signals from different categories before calling something a trip wire — single signals are noise.
+
+### Output schema
+
+```yaml
+mbti:
+  type: ENFP                  # or "INFP/ENFP" if borderline, or "unclear"
+  confidence: medium          # low / medium / high
+  basis: |
+    <2-4 sentences citing specific signals from chat.md>
+trip-wires:
+  - topic: <short label>
+    pattern: <what triggered → reaction>
+    repair: <how to avoid / recover>
+comms:
+  frequency: <e.g. "1 ping / 2 days when ball mine">
+  style: <e.g. "short, no metaphors, voice OK">
+  do: [<topic-1>, <topic-2>]
+  avoid: [<thing-1>, <thing-2>]
+```
+
+## Hard rules
+
+1. **Never share the inferred type with the actual contact as fact.** "I think she's INTJ" is fine privately; saying it to her is annoying and often wrong.
+2. **Don't paste `chat.md` excerpts outside the local session.** All evidence stays in the user's local clone.
+3. **If you can, ask the contact** to take [types.learntocode.com.tw](https://types.learntocode.com.tw/) — self-report beats inference.
+4. **Re-check every few months.** People change, moods vary. Treat MBTI as a snapshot, not a label.
+
+## Integration with other skills
+
+- This skill produces **slow-moving fields** (`mbti`, `trip-wires`, `comms`) in profile.md frontmatter.
+- The companion [`subtext-reading`](../subtext-reading/SKILL.md) skill produces the **fast-moving** "current state" in the body — re-run subtext every refresh, re-run MBTI every few weeks or after a major shift.

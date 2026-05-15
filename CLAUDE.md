@@ -139,3 +139,16 @@ wx daemon stop; wx new-messages
 | How do I read where they are *right now* in a conversation? | `docs/subtext-reading.md` |
 | How do I turn a boss's chat dump into a structured TODO list? | `docs/task-extract.md` |
 | What's the user's personal context? | `CLAUDE.local.md` (gitignored, only in local clones) |
+
+## Project-scoped skills (`.claude/skills/`)
+
+For Claude Code specifically, this repo ships four task-scoped skills that auto-load when their description matches the user's current task:
+
+| Skill | Triggers on | Methodology |
+|---|---|---|
+| `.claude/skills/mbti-analysis/` | "infer MBTI", "what type is X", "comms strategy for Y" | `docs/mbti-analysis.md` |
+| `.claude/skills/subtext-reading/` | "is she cooling", "what's the subtext", "should I ping again" | `docs/subtext-reading.md` |
+| `.claude/skills/task-extract/` | "list tasks from boss chat", "what did X ask me to do" | `docs/task-extract.md` |
+| `.claude/skills/self-mirror/` | "how do I sound on WeChat", "豆包式 frequency" | `tools/self-mirror.ps1` output |
+
+These complement (don't replace) this `CLAUDE.md`, which loads in every session as the always-on context. The per-task SKILL.md files load conditionally to keep context focused.

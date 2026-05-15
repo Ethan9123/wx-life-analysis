@@ -88,11 +88,20 @@ This wraps the `wx export` + `wx sns-feed` + `wx stats` trio into one command an
 ```
 wx-life-analysis/
 ├── README.md              ← you are here
-├── AGENTS.md              ← contract for Codex / code-agents
-├── CLAUDE.md              ← contract for Claude Code
-├── SKILL.md               ← Vercel Skills entry (npx skills add)
+├── AGENTS.md              ← contract for Codex / Cursor / Aider / Copilot agent
+├── CLAUDE.md              ← contract for Claude Code (always-on)
+├── SKILL.md               ← Vercel Skills entry (`npx skills add Ethan9123/wx-life-analysis`)
 ├── LICENSE                ← Apache-2.0
 ├── .gitignore             ← defensively blocks real data
+├── .gitleaks.toml         ← custom PII regex rules (China mobile / wxid / chinese-chat-block)
+├── .claude/skills/        ← project-scoped Claude Code skills (load on description match)
+│   ├── mbti-analysis/SKILL.md
+│   ├── subtext-reading/SKILL.md
+│   ├── task-extract/SKILL.md
+│   └── self-mirror/SKILL.md
+├── .github/
+│   ├── workflows/no-data-leaked.yml   ← CI: gitleaks-action + path/extension blocks
+│   └── copilot-instructions.md        ← GitHub Copilot entry → AGENTS.md
 ├── docs/
 │   ├── mbti-analysis.md   ← per-person MBTI + trip-wire methodology
 │   ├── subtext-reading.md ← 9-signal / 6-state conversation-now framework

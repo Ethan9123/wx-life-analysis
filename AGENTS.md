@@ -30,25 +30,37 @@ End users clone this repo, run scripts locally to pull their own WeChat data int
 
 ```
 .
-├── README.md           Human-facing intro
-├── AGENTS.md           This file (Codex et al)
-├── CLAUDE.md           Claude Code specific guidance
-├── SKILL.md            Vercel Skills entry (npx skills add)
-├── LICENSE             Apache-2.0
-├── .gitignore          Blocks user data
-├── docs/               Long-form methodology docs
+├── README.md                       Human-facing intro
+├── AGENTS.md                       This file (Codex / Cursor / Aider, also auto-read by Copilot)
+├── CLAUDE.md                       Claude Code specific guidance
+├── SKILL.md                        Vercel Skills entry (npx skills add)
+├── LICENSE                         Apache-2.0
+├── .gitignore                      Blocks user data
+├── .claude/skills/                 Project-scoped Claude Code skills (auto-load on description match)
+│   ├── mbti-analysis/SKILL.md
+│   ├── subtext-reading/SKILL.md
+│   ├── task-extract/SKILL.md
+│   └── self-mirror/SKILL.md
+├── .github/
+│   ├── workflows/                  CI (no-data-leaked, gitleaks-action)
+│   ├── ISSUE_TEMPLATE/             Issue templates with privacy checklists
+│   ├── pull_request_template.md
+│   └── copilot-instructions.md     GitHub Copilot entry → references this file
+├── docs/                           Long-form methodology docs
 │   ├── mbti-analysis.md
 │   ├── subtext-reading.md
 │   └── task-extract.md
-├── tools/              Scripts (PowerShell + Bash + Node)
+├── tools/                          Scripts (PowerShell + Bash + Node)
 │   ├── extract-pdf.js
-│   ├── refresh.ps1
-│   ├── refresh.sh
-│   ├── status.ps1
-│   └── status.sh
-├── people/_template/   Profile scaffold
-├── projects/_template/ Project notes scaffold
-└── .github/workflows/  CI (lint, no-data-leaked checks)
+│   ├── refresh.ps1 / .sh
+│   ├── refresh-group.ps1 / .sh
+│   ├── status.ps1 / .sh
+│   ├── self-mirror.ps1
+│   ├── task-extract.ps1
+│   └── digest.ps1
+├── people/_template/               Profile scaffold (full YAML schema)
+├── projects/_template/             Project notes scaffold
+└── .gitleaks.toml                  Custom PII rules (per-fork .gitleaks.local.toml is gitignored)
 ```
 
 ## Coding conventions
