@@ -90,6 +90,15 @@ End users clone this repo, run scripts locally to pull their own WeChat data int
 1. Use placeholder names (`张三`, `Acme Project`).
 2. Mark fillable slots with `<...>` or `TODO:` comments.
 3. Include a `last-updated:` field so staleness is visible.
+4. Use YAML frontmatter with this fixed schema for both templates:
+   ```yaml
+   ---
+   last-updated: 2026-01-01
+   ball-in-court: Alice
+   next-action: <one concrete next step>
+   tags: [tag-1, tag-2]
+   ---
+   ```
 
 ## PR review checklist (for agents reviewing each other's work)
 

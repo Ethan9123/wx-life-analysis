@@ -1,18 +1,23 @@
+---
+last-updated: 2026-01-01
+ball-in-court: Alice / Bob
+next-action: <one concrete next step>
+tags:
+  - <tag-1>
+  - <tag-2>
+---
+
 # 张三
 
 > Profile template. Copy this directory to `people/<your-contact-slug>/` and fill in.
 > Anything under `people/<slug>/` is gitignored — your data stays local.
-
-last-updated: 2026-01-01
-球在谁那: 我 / TA
-下次动作: <one concrete next step>
 
 ## 基本面
 - **关系**: <朋友 / 同事 / 家人 / 暧昧 / 相亲 / 客户 / ...>
 - **真名**: <如果知道>
 - **昵称 / 备注**: <他们让你叫的名字>
 - **居住**: <城市 + 区>
-- **职业**: <公司 + 岗位>
+- **职业**: <Acme Corp + 岗位>
 - **生日**: <YYYY-MM-DD 或月日>
 - **怎么认识的**: <场合 + 时间>
 

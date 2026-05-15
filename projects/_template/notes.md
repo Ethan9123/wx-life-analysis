@@ -1,11 +1,16 @@
+---
+last-updated: 2026-01-01
+ball-in-court: Alice / Acme Corp
+next-action: <one concrete next step>
+tags:
+  - <tag-1>
+  - <tag-2>
+---
+
 # Acme Project
 
 > Project notes template. Copy this directory to `projects/<your-project-slug>/` and fill in.
 > Anything under `projects/<slug>/` is gitignored — your data stays local.
-
-last-updated: 2026-01-01
-球在谁那: 我 / 上司 / 客户 / ...
-下次动作: <one concrete next step>
 
 ## 项目状态
 <1 句话: 当前阶段、紧迫程度、谁在等什么>

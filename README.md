@@ -133,6 +133,17 @@ node tools\extract-pdf.js "C:\path\to\file.pdf" 1 20 > projects\my-project\extra
 
 Reads each `people/*/profile.md`, prints `name | last-updated | ball-in-court | next-action`.
 
+`profile.md` / `notes.md` now use YAML frontmatter:
+
+```yaml
+---
+last-updated: 2026-01-01
+ball-in-court: Alice
+next-action: <one concrete next step>
+tags: [tag-1, tag-2]
+---
+```
+
 ### Daemon management (delegated to wx-cli)
 
 ```powershell
