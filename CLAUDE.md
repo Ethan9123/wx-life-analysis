@@ -94,6 +94,10 @@ $OutputEncoding = [System.Text.Encoding]::UTF8; [Console]::OutputEncoding = [Sys
 .\tools\refresh.ps1 -Name "张三" -Dir "people/zhangsan"
 
 # Status overview
+# Self mirror report
+.\tools\self-mirror.ps1
+
+
 .\tools\status.ps1
 
 # Topic search

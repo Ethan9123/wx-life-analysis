@@ -146,6 +146,20 @@ wx search "桌游" -n 500 --json | Out-File topics\boardgame\search.json -Encodi
 node tools\extract-pdf.js "C:\path\to\file.pdf" 1 20 > projects\my-project\extract-p1-20.txt
 ```
 
+### Generate self-mirror report
+
+```powershell
+.\tools\self-mirror.ps1
+```
+
+Optional:
+
+```powershell
+.\tools\self-mirror.ps1 -Person "alice" -Out "SELF-MIRROR.md"
+```
+
+Scans `people/*/chat.md` and outputs a 7-section Markdown report for your own messaging habits.
+
 ### One-line status across all active contacts
 
 **Windows (PowerShell)**
