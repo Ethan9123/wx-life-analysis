@@ -67,3 +67,6 @@ desktop.ini
 dist/
 build/
 .cache/
+
+# Self mirror report
+SELF-MIRROR.md
