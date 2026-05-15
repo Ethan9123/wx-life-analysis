@@ -70,3 +70,6 @@ build/
 
 # Self mirror report
 SELF-MIRROR.md
+
+# Root-level task extraction output
+task-candidates.md

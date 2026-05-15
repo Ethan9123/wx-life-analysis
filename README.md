@@ -187,6 +187,17 @@ tags: [tag-1, tag-2]
 ---
 ```
 
+
+### First-pass task candidate extraction (project workflow)
+
+```powershell
+.\tools\task-extract.ps1 -Person zhangsan -Project acme-launch
+.\tools\task-extract.ps1 -Person zhangsan -Since "2026-05-01"
+.\tools\task-extract.ps1 -Person zhangsan -Project acme-launch -Out projects/acme-launch/task-candidates.md
+```
+
+Generates a markdown candidate list from `people/<person>/chat.md` (and optional project/topic context) using pattern matching only. It is a first pass and does **not** do LLM classification or write `notes.md`. Methodology: [`docs/task-extract.md`](docs/task-extract.md).
+
 ### Daemon management (delegated to wx-cli)
 
 ```powershell
