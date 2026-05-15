@@ -193,6 +193,18 @@ Optional:
 
 Scans `people/*/chat.md` and outputs a 7-section Markdown report for your own messaging habits.
 
+### What Changed Since Last Session (Digest)
+
+```powershell
+.\tools\digest.ps1
+.\tools\digest.ps1 -Write
+.\tools\digest.ps1 -Since "2026-05-10"
+```
+
+Runs `wx new-messages --json`, groups unread incremental messages by contact, and prints a compact 5-column digest (`名字 / 消息数 / 最后消息时间 / 前 80 字预览 / 球在你?`).
+
+`-Write` also outputs `DIGEST.md` at repo root (gitignored).
+
 ### One-line status across all active contacts
 
 **Windows (PowerShell)**

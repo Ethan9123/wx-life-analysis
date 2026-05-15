@@ -76,3 +76,6 @@ task-candidates.md
 # Personal gitleaks rules (real-name patterns specific to each fork)
 .gitleaks.local.toml
 
+
+# Session digest output
+DIGEST.md
