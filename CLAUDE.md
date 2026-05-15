@@ -58,12 +58,13 @@ You'll know because `people/<name>/chat.md` and `projects/<name>/notes.md` will 
    - Answer "ball-in-court: me / them" explicitly.
    - Output the 5-line block format (state / ball / last move / key signal / do now).
    - Update `profile.md` body "当前状态" section with this block.
-5. If the situation changed materially (new relationship phase, conflict, breakthrough), tell the user explicitly. Don't bury it.
+6. If the situation changed materially (new relationship phase, conflict, breakthrough), tell the user explicitly. Don't bury it.
 
 ### Workflow for a project
 
 1. Source materials (PDFs, docs) go in `projects/<name>/` (gitignored).
 2. Use `tools/extract-pdf.js` for text extraction.
+2.5 Run `tools/task-extract.ps1 -Person "<task-giver-slug>" -Project "<project-slug>"` for first-pass candidate filtering before full read.
 3. Write `projects/<name>/notes.md` with task breakdown by priority (P0/P1/P2/P3).
 4. Optionally generate a `task-plan.html` dashboard for visual scanning.
 5. Track decisions needed from third parties (boss, family, etc.) in a dedicated section.
@@ -94,11 +95,13 @@ $OutputEncoding = [System.Text.Encoding]::UTF8; [Console]::OutputEncoding = [Sys
 .\tools\refresh.ps1 -Name "张三" -Dir "people/zhangsan"
 
 # Status overview
-# Self mirror report
+.\tools\status.ps1
+
+# Self mirror report (your own chat habits)
 .\tools\self-mirror.ps1
 
-
-.\tools\status.ps1
+# Task candidate extraction (first-pass, see docs/task-extract.md)
+.\tools\task-extract.ps1 -Person "<task-giver-slug>" -Project "<project-slug>"
 
 # Topic search
 wx search "关键词" -n 500 --json | Out-File topics\<slug>\search.json -Encoding utf8
