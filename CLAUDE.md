@@ -123,4 +123,5 @@ wx daemon stop; wx new-messages
 | What are the hard rules? | `AGENTS.md` § Hard rules |
 | How do I run an MBTI + trip-wire pass on a person? | `docs/mbti-analysis.md` |
 | How do I read where they are *right now* in a conversation? | `docs/subtext-reading.md` |
+| How do I turn a boss's chat dump into a structured TODO list? | `docs/task-extract.md` |
 | What's the user's personal context? | `CLAUDE.local.md` (gitignored, only in local clones) |

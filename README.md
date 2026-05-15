@@ -225,7 +225,9 @@ session start — no hedging, no prose summary.
 For project work (`projects/<name>/`):
 1. Drop the source PDFs / docs into the project folder (gitignored)
 2. Extract text with `tools/extract-pdf.js`
-3. Agent reads extracts + writes `notes.md` with task breakdown
+3. Agent reads extracts + writes `notes.md` with task breakdown — methodology in
+   [`docs/task-extract.md`](docs/task-extract.md) (speech-act categories, 3-axis
+   priority scoring, "quote-don't-paraphrase" rule, etc)
 4. Optionally generate `task-plan.html` for a visual dashboard
 
 The agent files (`AGENTS.md`, `CLAUDE.md`) describe these flows in machine-readable detail.

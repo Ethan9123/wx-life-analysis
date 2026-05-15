@@ -36,7 +36,9 @@ End users clone this repo, run scripts locally to pull their own WeChat data int
 ├── LICENSE             Apache-2.0
 ├── .gitignore          Blocks user data
 ├── docs/               Long-form methodology docs
-│   └── mbti-analysis.md
+│   ├── mbti-analysis.md
+│   ├── subtext-reading.md
+│   └── task-extract.md
 ├── tools/              Scripts (PowerShell + Bash + Node)
 │   ├── extract-pdf.js
 │   ├── refresh.ps1
