@@ -209,6 +209,18 @@ If the contact wants to know their own type, share
 [types.learntocode.com.tw](https://types.learntocode.com.tw/) — a self-test is more
 reliable than inferring from chat.
 
+### Reading the room: subtext detection
+
+MBTI tells you *who* they are. Subtext tells you *where this conversation is right
+now*. [`docs/subtext-reading.md`](docs/subtext-reading.md) gives the agent a
+9-signal checklist (reply-gap spike, length collapse, hard redirect, stickerization,
+explicit boundary, the meta-critique signal, etc) and a 6-state classifier
+(🔥 hot → 🟢 warm → 🟡 mild cool → 🟠 cooling → 🔴 disengaging → ⚫ gone), plus the
+correct response for each state given who currently holds the ball.
+
+The output is a 5-line block per person, designed to be read in <10 seconds at
+session start — no hedging, no prose summary.
+
 
 For project work (`projects/<name>/`):
 1. Drop the source PDFs / docs into the project folder (gitignored)

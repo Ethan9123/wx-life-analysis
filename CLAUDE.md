@@ -52,6 +52,12 @@ You'll know because `people/<name>/chat.md` and `projects/<name>/notes.md` will 
      redirects). Record `trip-wires` list.
    - Translate to `comms.frequency` / `comms.style` / `comms.do` / `comms.avoid`.
    - Always include a confidence level. Don't fabricate certainty.
+5. **Subtext pass** (see [`docs/subtext-reading.md`](docs/subtext-reading.md)):
+   - Decide one state for *this moment*: 🔥 hot / 🟢 warm / 🟡 mild cool / 🟠 cooling /
+     🔴 disengaging / ⚫ gone. **Pick one — no hedging.**
+   - Answer "ball-in-court: me / them" explicitly.
+   - Output the 5-line block format (state / ball / last move / key signal / do now).
+   - Update `profile.md` body "当前状态" section with this block.
 5. If the situation changed materially (new relationship phase, conflict, breakthrough), tell the user explicitly. Don't bury it.
 
 ### Workflow for a project
@@ -116,4 +122,5 @@ wx daemon stop; wx new-messages
 | How do I add a tool? | `AGENTS.md` § How to add a new tool |
 | What are the hard rules? | `AGENTS.md` § Hard rules |
 | How do I run an MBTI + trip-wire pass on a person? | `docs/mbti-analysis.md` |
+| How do I read where they are *right now* in a conversation? | `docs/subtext-reading.md` |
 | What's the user's personal context? | `CLAUDE.local.md` (gitignored, only in local clones) |
