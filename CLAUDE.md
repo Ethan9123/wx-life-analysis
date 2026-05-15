@@ -34,8 +34,9 @@ You'll know because `people/<name>/chat.md` and `projects/<name>/notes.md` will 
 1. Read this file (you're doing it).
 2. Read the user's local `CLAUDE.local.md` if it exists — that's their private context (real names, family, work projects). It's gitignored.
 3. Run `tools/status.ps1` to see what's stale and where the ball is.
-4. Read the most relevant `people/<name>/profile.md` or `projects/<name>/notes.md` for the current task.
-5. Ask the user what they want to push forward.
+4. Optional: run `tools/digest.ps1` for a quick unread incremental snapshot since last session.
+5. Read the most relevant `people/<name>/profile.md` or `projects/<name>/notes.md` for the current task.
+6. Ask the user what they want to push forward.
 
 ### Workflow for analyzing a person
 
@@ -97,6 +98,11 @@ $OutputEncoding = [System.Text.Encoding]::UTF8; [Console]::OutputEncoding = [Sys
 
 # Status overview
 .\tools\status.ps1
+
+# Optional digest since last session (incremental unread)
+.\tools\digest.ps1
+.\tools\digest.ps1 -Write
+.\tools\digest.ps1 -Since "2026-05-10"
 
 # Self mirror report (your own chat habits)
 .\tools\self-mirror.ps1
