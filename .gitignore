@@ -1,0 +1,69 @@
+# ============================================================
+# DEFENSIVE GITIGNORE — this repo MUST NOT contain real data.
+# Everything below blocks personal data from being committed.
+# Templates live under _template/ and are explicitly allowed.
+# ============================================================
+
+# Real person data (only _template/ is allowed)
+people/*
+!people/_template/
+!people/README.md
+
+# Real project notes (only _template/ is allowed)
+projects/*
+!projects/_template/
+!projects/README.md
+
+# Topic search dumps
+topics/*
+!topics/README.md
+
+# Raw / inbox staging
+raw/
+inbox/
+
+# Local-only overrides
+CLAUDE.local.md
+*.local.md
+.env
+.env.*
+
+# WeChat / wx-cli artifacts
+*.db
+*.sqlite
+*.sqlite3
+all_keys.json
+.wx-cli/
+
+# PDF / Office source files (often contain confidential content)
+*.pdf
+*.docx
+*.xlsx
+*.pptx
+
+# Extracted-text staging (PDF -> txt outputs)
+*.extracted.txt
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build / cache
+dist/
+build/
+.cache/

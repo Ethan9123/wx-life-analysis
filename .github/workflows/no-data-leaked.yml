@@ -1,0 +1,65 @@
+name: no-data-leaked
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Block files under people/ outside _template/
+        run: |
+          set -e
+          violations=$(find people -mindepth 2 -type f \
+            ! -path 'people/_template/*' \
+            ! -name 'README.md' || true)
+          if [ -n "$violations" ]; then
+            echo "::error::Files under people/ outside _template/ detected:"
+            echo "$violations"
+            exit 1
+          fi
+
+      - name: Block files under projects/ outside _template/
+        run: |
+          set -e
+          violations=$(find projects -mindepth 2 -type f \
+            ! -path 'projects/_template/*' \
+            ! -name 'README.md' || true)
+          if [ -n "$violations" ]; then
+            echo "::error::Files under projects/ outside _template/ detected:"
+            echo "$violations"
+            exit 1
+          fi
+
+      - name: Block files under topics/ outside README
+        run: |
+          set -e
+          violations=$(find topics -mindepth 2 -type f \
+            ! -name 'README.md' || true)
+          if [ -n "$violations" ]; then
+            echo "::error::Files under topics/ detected (should be gitignored):"
+            echo "$violations"
+            exit 1
+          fi
+
+      - name: Block sensitive file extensions
+        run: |
+          set -e
+          violations=$(find . -type f \
+            \( -name '*.db' -o -name '*.sqlite' -o -name '*.sqlite3' \
+               -o -name '*.pdf' -o -name '*.docx' -o -name '*.xlsx' -o -name '*.pptx' \
+               -o -name 'all_keys.json' \) \
+            ! -path './.git/*' || true)
+          if [ -n "$violations" ]; then
+            echo "::error::Sensitive file types found in repo:"
+            echo "$violations"
+            exit 1
+          fi
+
+      - name: Lint extract-pdf.js with node --check
+        run: node --check tools/extract-pdf.js
