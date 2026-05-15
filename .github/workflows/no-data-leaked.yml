@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # gitleaks needs full history to diff PR ranges
 
       - name: Block files under people/ outside _template/
         run: |
