@@ -12,7 +12,7 @@ Built on top of [`@jackwener/wx-cli`](https://github.com/jackwener/wx-cli) — `
 
 ✅ **A template repo** — fork or clone, fill in your own data locally, never push the data back.
 ✅ **An agent contract** — `AGENTS.md` + `CLAUDE.md` tell any code-agent how to behave in this workspace.
-✅ **A small toolbox** — PowerShell + Node scripts that wrap `wx-cli` for common workflows.
+✅ **A small toolbox** — PowerShell, Bash + Node scripts that wrap `wx-cli` for common workflows.
 
 ❌ Not a fork of `wx-cli`. You still need `wx-cli` installed separately.
 ❌ Not a hosted service. Everything runs locally on your machine.
@@ -56,8 +56,17 @@ Open the workspace in Claude Code, Codex, or Cursor. The agent reads `AGENTS.md`
 
 ### 4. Pull data for a contact
 
+**Windows**
+
 ```powershell
 .\tools\refresh.ps1 -Name "张三" -Dir "people/zhangsan"
+```
+
+**macOS / Linux**
+
+```bash
+chmod +x tools/refresh.sh
+./tools/refresh.sh --name "张三" --dir "people/zhangsan"
 ```
 
 This wraps the `wx export` + `wx sns-feed` + `wx stats` trio into one command and writes to `people/zhangsan/`. The directory is gitignored.
@@ -75,8 +84,10 @@ wx-life-analysis/
 ├── .gitignore             ← defensively blocks real data
 ├── tools/
 │   ├── extract-pdf.js     ← PDF text extraction (Node + pdf-parse)
-│   ├── refresh.ps1        ← pull latest chat/SNS for one contact
-│   └── status.ps1         ← one-line status per active contact
+│   ├── refresh.ps1        ← pull latest chat/SNS for one contact (Windows)
+│   ├── refresh.sh          ← same, for macOS / Linux
+│   ├── status.ps1          ← one-line status per active contact (Windows)
+│   └── status.sh           ← same, for macOS / Linux
 ├── people/
 │   ├── _template/         ← profile.md scaffold (committed)
 │   └── <name>/            ← your data (gitignored)
@@ -102,8 +113,16 @@ All paths assume you're at the repo root.
 
 ### Pull a contact's latest data
 
+**Windows (PowerShell)**
+
 ```powershell
 .\tools\refresh.ps1 -Name "张三" -Dir "people/zhangsan" -N 500
+```
+
+**macOS / Linux (bash)**
+
+```bash
+./tools/refresh.sh --name "张三" --dir "people/zhangsan" --n 500
 ```
 
 Equivalent to:
@@ -127,8 +146,16 @@ node tools\extract-pdf.js "C:\path\to\file.pdf" 1 20 > projects\my-project\extra
 
 ### One-line status across all active contacts
 
+**Windows (PowerShell)**
+
 ```powershell
 .\tools\status.ps1
+```
+
+**macOS / Linux (bash)**
+
+```bash
+./tools/status.sh
 ```
 
 Reads each `people/*/profile.md`, prints `name | last-updated | ball-in-court | next-action`.
