@@ -57,7 +57,8 @@ End users clone this repo, run scripts locally to pull their own WeChat data int
 │   ├── status.ps1 / .sh
 │   ├── self-mirror.ps1
 │   ├── task-extract.ps1
-│   └── digest.ps1
+│   ├── digest.ps1
+│   └── warmth.ps1 / .sh
 ├── people/_template/               Profile scaffold (full YAML schema)
 ├── projects/_template/             Project notes scaffold
 └── .gitleaks.toml                  Custom PII rules (per-fork .gitleaks.local.toml is gitignored)

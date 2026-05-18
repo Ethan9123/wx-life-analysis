@@ -216,6 +216,24 @@ Runs `wx new-messages --json`, groups unread incremental messages by contact, an
 
 `-Write` also outputs `DIGEST.md` at repo root (gitignored).
 
+### Warmth gauge (who's engaging with your SNS posts)
+
+**Windows (PowerShell)**
+
+```powershell
+.\tools\warmth.ps1
+.\tools\warmth.ps1 -IncludeRead -N 300
+```
+
+**macOS / Linux (bash)**
+
+```bash
+./tools/warmth.sh
+./tools/warmth.sh --include-read --n 300 --format json | jq '.[] | select(.total > 5)'
+```
+
+Wraps `wx sns-notifications`. Outputs a sender-grouped table (total / likes / comments / latest engagement). Used by `docs/mbti-analysis.md` § Interaction signals as a per-contact warmth gauge.
+
 ### One-line status across all active contacts
 
 **Windows (PowerShell)**

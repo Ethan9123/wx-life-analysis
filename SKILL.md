@@ -52,11 +52,11 @@ The agent then reads `AGENTS.md` + `CLAUDE.md` and knows the workflow.
 
 Methodology: [`docs/mbti-analysis.md`](docs/mbti-analysis.md)
 
-1. Pull data: `refresh.ps1` (or `.sh`)
-2. Read `people/<slug>/chat.md` chronologically
-3. Score each of 4 axes (E/I, S/N, T/F, J/P) from observable chat signals (latency, voice/text ratio, abstract vs concrete language, planning style)
-4. Walk the chat for trip-wires (reply-latency spikes, length collapse, hard redirects, meta-critique)
-5. Update `people/<slug>/profile.md` YAML frontmatter:
+1. Pull data: `refresh.ps1` (or `.sh`) — produces both `chat.md` AND `sns.json`. Optionally run `tools/warmth.ps1` (or `.sh`) for the SNS-engagement-on-your-posts warmth gauge.
+2. Read **both** `people/<slug>/chat.md` (private, ~70% of signal) AND `people/<slug>/sns.json` (public self-presentation, ~30% of signal, often flips a borderline axis)
+3. Score each of 4 axes (E/I, S/N, T/F, J/P) using signals from chat AND SNS combined (latency, voice/text ratio, abstract vs concrete language, planning style, post frequency, caption tone, audience scope, visible gaps)
+4. Walk the chat for trip-wires (reply-latency spikes, length collapse, hard redirects, meta-critique). Cross-reference with SNS for safe / unsafe topic territory and persona splits.
+5. Update `people/<slug>/profile.md` YAML frontmatter (and the `## 朋友圈观察` body section):
    ```yaml
    mbti:
      type: ENFP                       # or "INFP/ENFP" if borderline, or "unclear"
@@ -127,11 +127,14 @@ Single most actionable target: **echo-reply detection** ("X 看起来挺 X 啊" 
 │   ├── subtext-reading.md
 │   └── task-extract.md
 ├── tools/
-│   ├── extract-pdf.js       PDF text extraction (Node + pdf-parse)
-│   ├── refresh.ps1 / .sh    pull chat + SNS + stats for one contact
-│   ├── status.ps1 / .sh     one-line status per contact
-│   ├── self-mirror.ps1      quantify own chat habits
-│   └── task-extract.ps1     first-pass TODO candidate extractor
+│   ├── extract-pdf.js          PDF text extraction (Node + pdf-parse)
+│   ├── refresh.ps1 / .sh       pull chat + SNS + stats for one contact
+│   ├── refresh-group.ps1 / .sh pull a group chat into topics/<slug>/
+│   ├── status.ps1 / .sh        one-line status per contact
+│   ├── digest.ps1              unread incremental snapshot since last session
+│   ├── warmth.ps1 / .sh        SNS engagement on your posts (warmth gauge)
+│   ├── self-mirror.ps1         quantify own chat habits
+│   └── task-extract.ps1        first-pass TODO candidate extractor
 ├── people/_template/        profile.md scaffold (with full YAML schema)
 ├── projects/_template/      notes.md scaffold
 └── topics/                  cross-chat keyword search dumps (gitignored)

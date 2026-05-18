@@ -104,6 +104,10 @@ $OutputEncoding = [System.Text.Encoding]::UTF8; [Console]::OutputEncoding = [Sys
 .\tools\digest.ps1 -Write
 .\tools\digest.ps1 -Since "2026-05-10"
 
+# Warmth gauge — who's liking/commenting on your own SNS
+.\tools\warmth.ps1
+.\tools\warmth.ps1 -IncludeRead -N 300
+
 # Self mirror report (your own chat habits)
 .\tools\self-mirror.ps1
 

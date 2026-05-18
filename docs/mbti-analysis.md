@@ -106,13 +106,15 @@ Confidence = how strong the signal is, not how extreme the score is.
 
 ### Interaction signals (warmth gauge)
 
-Look at how they interact with *your* SNS (you can check this in the WeChat app; `wx-cli` may not surface it but it's a real signal worth noting in `profile.md` body):
+`wx-cli` exposes who's been liking / commenting on **your** SNS posts via `wx sns-notifications`. The toolkit wraps it as [`tools/warmth.ps1`](../tools/warmth.ps1) / `.sh` — a per-contact engagement summary you should read alongside chat + sns.json.
 
 - Likes your posts regularly → warm, comfortable with public association
 - Comments occasionally → warmer
 - Engages with your SNS but never DMs → prefers **public-light contact**, deep DMs feel high-stakes to them
 - Never engages with your SNS but chats 1:1 normally → **compartmentalizes** — don't read silence on SNS as cooling
 - Stopped engaging after a specific date → likely a relationship-level signal, cross-check chat
+
+Record the observed engagement pattern in the `## 朋友圈观察` body section of `profile.md`. Don't fabricate numbers — if `warmth.ps1` shows zero likes from a contact in the last 90 days, that's the data, write it down.
 
 ### Gaps in SNS
 
@@ -277,3 +279,9 @@ narrative. See `people/_template/profile.md` for the full template.
 - [types.learntocode.com.tw](https://types.learntocode.com.tw/) — the Chinese self-test you can share with a contact who wants to know their own type
 - The 16 types: standard descriptions are everywhere; pick any clear reference (16personalities.com, truity.com, etc)
 - Function stack theory (Ni / Ne / Si / Se / Ti / Te / Fi / Fe) — useful when type inference is stuck between two letters; skip if you don't already know it
+
+## Future direction — voice transcription
+
+About 5-10% of typical WeChat chat volume is voice notes. The current MBTI inference treats voice messages as "count only" (voice/text ratio matters for E/I) and ignores content. For contacts with high voice density, this is a real gap.
+
+[`ylytdeng/wechat-decrypt`](https://github.com/ylytdeng/wechat-decrypt) (the project that inspired `wx-cli`) ships voice transcription via three backends (local Whisper / OpenAI API / whisper.cpp) with caching. This toolkit doesn't wrap it yet — voice transcription adds enough complexity (model download, GPU optional, language detection) that it should be opt-in and probably a separate tool. If you find voice-content signals are blocking your inference, that's the next thing to build.

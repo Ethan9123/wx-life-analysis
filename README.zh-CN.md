@@ -166,6 +166,7 @@ do now: <一个具体动作，比如 "保持沉默。不要 ping。等 3+ 天。
 | `tools/refresh.ps1` / `.sh` | 拉取一个 1:1 联系人的最新聊天 + 朋友圈 + 统计 |
 | `tools/refresh-group.ps1` / `.sh` | 拉取一个**群聊**到 `topics/<slug>/`（成员名单 + 增量消息） |
 | `tools/digest.ps1` | 上次会话以来谁发了新消息 / 球在你这边的高亮提醒 |
+| `tools/warmth.ps1` / `.sh` | 谁在给你朋友圈点赞 / 评论（"温度计"，喂给 `docs/mbti-analysis.md` 的 interaction signals 段） |
 | `tools/status.ps1` / `.sh` | 一行 summary：所有人的当前状态 / 项目球在谁手上 / next-action |
 | `tools/self-mirror.ps1` | 见上面工作流 4 |
 | `tools/task-extract.ps1` | 见上面工作流 3 |
