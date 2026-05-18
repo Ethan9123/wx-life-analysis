@@ -56,6 +56,7 @@ End users clone this repo, run scripts locally to pull their own WeChat data int
 │   ├── refresh.ps1 / .sh           incremental chat + SNS + stats pull
 │   ├── refresh-group.ps1 / .sh
 │   ├── attachments.ps1 / .sh       list / extract chat attachments (PDFs, images, files)
+│   ├── voice-transcribe.ps1 / .sh  silk → wav → whisper pipeline for voice notes (local-first)
 │   ├── status.ps1 / .sh
 │   ├── self-mirror.ps1
 │   ├── task-extract.ps1

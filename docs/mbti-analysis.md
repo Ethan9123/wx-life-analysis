@@ -280,8 +280,18 @@ narrative. See `people/_template/profile.md` for the full template.
 - The 16 types: standard descriptions are everywhere; pick any clear reference (16personalities.com, truity.com, etc)
 - Function stack theory (Ni / Ne / Si / Se / Ti / Te / Fi / Fe) — useful when type inference is stuck between two letters; skip if you don't already know it
 
-## Future direction — voice transcription
+## Voice transcription (depth-add for voice-heavy contacts)
 
-About 5-10% of typical WeChat chat volume is voice notes. The current MBTI inference treats voice messages as "count only" (voice/text ratio matters for E/I) and ignores content. For contacts with high voice density, this is a real gap.
+About 5-10% of typical WeChat chat volume is voice notes — and for voice-heavy contacts, 30%+. The base MBTI inference treats voice as count only (voice/text ratio informs E/I) and ignores content.
 
-[`ylytdeng/wechat-decrypt`](https://github.com/ylytdeng/wechat-decrypt) (the project that inspired `wx-cli`) ships voice transcription via three backends (local Whisper / OpenAI API / whisper.cpp) with caching. This toolkit doesn't wrap it yet — voice transcription adds enough complexity (model download, GPU optional, language detection) that it should be opt-in and probably a separate tool. If you find voice-content signals are blocking your inference, that's the next thing to build.
+The toolkit now ships [`tools/voice-transcribe.ps1`](../tools/voice-transcribe.ps1) / `.sh` and the methodology doc [`docs/voice-transcription.md`](voice-transcription.md). The pipeline is:
+
+```
+wx attachments --kind voice  →  wx extract  →  silk_v3_decoder  →  ffmpeg  →  whisper
+```
+
+Output is `people/<slug>/voice-transcripts.md` (gitignored), structured as timestamped per-voice chunks. Read alongside `chat.md` chronologically for voice-heavy contacts — voice often carries emotional disclosures that text doesn't.
+
+**Privacy default**: local Whisper backends only (whisper.cpp / faster-whisper / openai-whisper). Cloud API requires an interactive `I CONSENT` confirmation per session. See `docs/voice-transcription.md` § Privacy hard rules.
+
+**When to skip**: voice ratio under 5%, distant relationships, or you don't have the Whisper models downloaded. The toolkit works without this step — voice transcription is depth, not breadth.

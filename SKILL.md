@@ -125,13 +125,15 @@ Single most actionable target: **echo-reply detection** ("X 看起来挺 X 啊" 
 ├── docs/
 │   ├── mbti-analysis.md
 │   ├── subtext-reading.md
-│   └── task-extract.md
+│   ├── task-extract.md
+│   └── voice-transcription.md
 ├── tools/
 │   ├── extract-pdf.js           PDF text extraction (Node + pdf-parse)
 │   ├── contacts.ps1 / .sh       fuzzy contact lookup (verify exact name before refresh)
 │   ├── refresh.ps1 / .sh        pull chat + SNS + stats for one contact (incremental)
 │   ├── refresh-group.ps1 / .sh  pull a group chat into topics/<slug>/
 │   ├── attachments.ps1 / .sh    list / extract chat attachments (PDFs, images, files)
+│   ├── voice-transcribe.ps1 / .sh  silk → wav → whisper pipeline for voice (local-first)
 │   ├── status.ps1 / .sh         one-line status per contact
 │   ├── digest.ps1               unread incremental snapshot since last session
 │   ├── warmth.ps1 / .sh         SNS engagement on your posts (warmth gauge)

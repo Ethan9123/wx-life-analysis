@@ -227,6 +227,26 @@ wx search "桌游" -n 500 --json | Out-File topics\boardgame\search.json -Encodi
 
 Wraps `wx attachments` (list) + `wx extract` (decrypt + save). Two modes: list (default) and extract (when `-Extract`/`--extract` or `-ExtractAll`/`--extract-all` is given). Useful for pulling PDFs from a boss-contact into a project workspace before running `task-extract.ps1`.
 
+### Transcribe voice notes (whisper pipeline)
+
+For voice-heavy contacts (>5% voice / text ratio), unlocks the content of voice messages — voice often carries emotional disclosures that text doesn't.
+
+**Windows (PowerShell)**
+
+```powershell
+.\tools\voice-transcribe.ps1 -Person qiumu -Since "2026-04-01" -Model base
+```
+
+**macOS / Linux (bash)**
+
+```bash
+./tools/voice-transcribe.sh --person qiumu --since 2026-04-01 --model base
+```
+
+5-stage pipeline (`wx attachments → wx extract → silk_v3_decoder → ffmpeg → whisper`), with **local-only** defaults (whisper.cpp / faster-whisper / openai-whisper auto-detected). Cloud API requires explicit `I CONSENT` confirmation. Output: `people/<slug>/voice-transcripts.md` (gitignored).
+
+Dependencies: `silk_v3_decoder` ([kn007/silk-v3-decoder](https://github.com/kn007/silk-v3-decoder)) + `ffmpeg` + one of the Whisper backends. Full setup + privacy notes in [`docs/voice-transcription.md`](docs/voice-transcription.md).
+
 ### Extract text from a PDF (for project research)
 
 ```powershell

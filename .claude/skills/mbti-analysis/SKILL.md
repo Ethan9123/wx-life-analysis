@@ -38,6 +38,10 @@ When this skill is loaded, you are running a **per-person personality + comms-st
 
 If SNS shows a polished extrovert but chat shows reserved/tired — **don't approach with the public version of them**. Note explicitly in `mbti.basis`. This is one of the highest-value observations the SNS pass produces.
 
+### Voice transcription (optional depth-add)
+
+For voice-heavy contacts (voice/text ratio > 5%), the agent should suggest running [`tools/voice-transcribe.ps1`](../../../tools/voice-transcribe.ps1) / `.sh` to surface content from voice messages. Read the resulting `people/<slug>/voice-transcripts.md` alongside `chat.md` — voice often carries the emotional/vulnerable register that text doesn't. Methodology: [`docs/voice-transcription.md`](../../../docs/voice-transcription.md). Privacy default is local-only Whisper; cloud APIs require explicit user `I CONSENT` confirmation.
+
 ### Confidence required
 
 Always record `mbti.confidence: low | medium | high` plus 2-4 sentences of `mbti.basis` citing **specific data points**, not vibes. If signals are mixed, write `"INFP/ENFP"` or `"unclear"`.

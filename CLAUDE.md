@@ -119,6 +119,9 @@ $OutputEncoding = [System.Text.Encoding]::UTF8; [Console]::OutputEncoding = [Sys
 .\tools\attachments.ps1 -Name "张三" -Kind file -Since "2026-05-01"
 .\tools\attachments.ps1 -Name "张三" -Kind file -Since "2026-05-01" -ExtractAll -Out "projects/<slug>/raw"
 
+# Voice transcription (silk → wav → whisper; local-only by default)
+.\tools\voice-transcribe.ps1 -Person zhangsan -Since "2026-04-01" -Model base
+
 # Self mirror report (your own chat habits)
 .\tools\self-mirror.ps1
 
@@ -153,6 +156,7 @@ wx daemon stop; wx new-messages
 | How do I run an MBTI + trip-wire pass on a person? | `docs/mbti-analysis.md` |
 | How do I read where they are *right now* in a conversation? | `docs/subtext-reading.md` |
 | How do I turn a boss's chat dump into a structured TODO list? | `docs/task-extract.md` |
+| How do I transcribe voice notes for a voice-heavy contact? | `docs/voice-transcription.md` |
 | What's the user's personal context? | `CLAUDE.local.md` (gitignored, only in local clones) |
 
 ## Project-scoped skills (`.claude/skills/`)
