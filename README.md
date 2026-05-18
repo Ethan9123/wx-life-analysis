@@ -137,21 +137,39 @@ wx-life-analysis/
 
 All paths assume you're at the repo root.
 
-### Pull a contact's latest data
+### Find a contact's exact display name (before refresh)
+
+WeChat names can have look-alikes — multiple `张三`s, a remark name differing from
+the nickname, etc. Run `contacts.ps1` first to confirm you're targeting the right person:
+
+```powershell
+.\tools\contacts.ps1 -Query "张"
+./tools/contacts.sh --query "alice"
+```
+
+Wraps `wx contacts --query`. Output is a markdown table with display name, remark, alias, chat type, wxid, and last-message timestamp. Pass the exact `Display name` to `refresh.ps1 -Name` next.
+
+### Pull a contact's latest data (incremental by default)
 
 **Windows (PowerShell)**
 
 ```powershell
-.\tools\refresh.ps1 -Name "张三" -Dir "people/zhangsan" -N 500
+.\tools\refresh.ps1 -Name "张三" -Dir "people/zhangsan"
+.\tools\refresh.ps1 -Name "张三" -Dir "people/zhangsan" -Full         # force full re-pull
+.\tools\refresh.ps1 -Name "张三" -Dir "people/zhangsan" -Since "2026-05-01"
 ```
 
 **macOS / Linux (bash)**
 
 ```bash
-./tools/refresh.sh --name "张三" --dir "people/zhangsan" --n 500
+./tools/refresh.sh --name "张三" --dir "people/zhangsan"
+./tools/refresh.sh --name "张三" --dir "people/zhangsan" --full
+./tools/refresh.sh --name "张三" --dir "people/zhangsan" --since 2026-05-01
 ```
 
-Equivalent to:
+First run: pulls the last 500 messages (configurable via `-N` / `--n`). Subsequent runs: reads `.last-sync` in the target dir and uses `wx export --since <date>` for true incremental — fast, no duplicate data. SNS feed uses the same cutoff.
+
+Equivalent to (initial seed):
 ```powershell
 wx export "张三" -n 500 --format markdown -o people\zhangsan\chat.md
 wx sns-feed --user "张三" -n 50 --json | Out-File people\zhangsan\sns.json -Encoding utf8

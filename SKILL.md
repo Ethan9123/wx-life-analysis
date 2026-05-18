@@ -128,7 +128,8 @@ Single most actionable target: **echo-reply detection** ("X 看起来挺 X 啊" 
 │   └── task-extract.md
 ├── tools/
 │   ├── extract-pdf.js          PDF text extraction (Node + pdf-parse)
-│   ├── refresh.ps1 / .sh       pull chat + SNS + stats for one contact
+│   ├── contacts.ps1 / .sh      fuzzy contact lookup (verify exact name before refresh)
+│   ├── refresh.ps1 / .sh       pull chat + SNS + stats for one contact (incremental)
 │   ├── refresh-group.ps1 / .sh pull a group chat into topics/<slug>/
 │   ├── status.ps1 / .sh        one-line status per contact
 │   ├── digest.ps1              unread incremental snapshot since last session

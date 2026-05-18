@@ -93,8 +93,12 @@ Match the user's preference, which they'll usually state. Sensible defaults:
 # Encoding fix (run once per PowerShell session)
 $OutputEncoding = [System.Text.Encoding]::UTF8; [Console]::OutputEncoding = [System.Text.Encoding]::UTF8; chcp 65001 | Out-Null
 
-# Pull one person's data
+# Find the exact contact display name (fuzzy lookup before refresh)
+.\tools\contacts.ps1 -Query "张三"
+
+# Pull one person's data (incremental by default — reads .last-sync, uses wx --since)
 .\tools\refresh.ps1 -Name "张三" -Dir "people/zhangsan"
+.\tools\refresh.ps1 -Name "张三" -Dir "people/zhangsan" -Full        # force full re-pull
 
 # Status overview
 .\tools\status.ps1

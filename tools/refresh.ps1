@@ -4,7 +4,12 @@
 
 .DESCRIPTION
   Wraps `wx export`, `wx sns-feed`, and `wx stats` from @jackwener/wx-cli.
-  Output files are gitignored (under people/<name>/ or projects/<name>/).
+  Output files are gitignored (under people/<slug>/).
+
+  **Incremental by default**: if `.last-sync` exists in the target directory,
+  uses `wx export --since <date>` to pull only new messages since the last
+  refresh. First run (no `.last-sync`) falls back to `-n $N` initial seed.
+  Use `-Full` to force a full re-pull regardless.
 
 .PARAMETER Name
   The contact's display name / remark name in WeChat. Required.
@@ -14,7 +19,8 @@
   Examples: people/zhangsan, people/alice
 
 .PARAMETER N
-  Max number of chat messages to export. Default 500.
+  Max number of chat messages on initial seed (no `.last-sync` yet, or `-Full`).
+  Default 500. Ignored when running incrementally.
 
 .PARAMETER SnsN
   Max number of SNS (Moments) entries. Default 50.
@@ -22,11 +28,23 @@
 .PARAMETER SkipSns
   Skip SNS feed pull (some contacts have privacy settings that block it).
 
-.EXAMPLE
-  .\tools\refresh.ps1 -Name "张三" -Dir "people/zhangsan"
+.PARAMETER Full
+  Force a full re-pull (ignore `.last-sync`, use `-n $N`).
+
+.PARAMETER Since
+  Manually specify the cutoff date (YYYY-MM-DD). Overrides `.last-sync` and `-Full`.
 
 .EXAMPLE
-  .\tools\refresh.ps1 -Name "Alice" -Dir "people/alice" -N 1000 -SkipSns
+  .\tools\refresh.ps1 -Name "张三" -Dir "people/zhangsan"
+  # First run: pulls -n 500. Subsequent runs: incremental from last-sync.
+
+.EXAMPLE
+  .\tools\refresh.ps1 -Name "Alice" -Dir "people/alice" -Full
+  # Force a full re-pull of the last 500 messages.
+
+.EXAMPLE
+  .\tools\refresh.ps1 -Name "张三" -Dir "people/zhangsan" -Since "2026-05-01"
+  # Pull everything since 2026-05-01, ignoring last-sync.
 #>
 
 [CmdletBinding()]
@@ -35,7 +53,9 @@ param(
   [Parameter(Mandatory = $true)][string]$Dir,
   [int]$N = 500,
   [int]$SnsN = 50,
-  [switch]$SkipSns
+  [switch]$SkipSns,
+  [switch]$Full,
+  [string]$Since
 )
 
 # Force UTF-8 for Chinese names / content
@@ -61,9 +81,35 @@ $snsPath  = Join-Path $Dir 'sns.json'
 $statsPath = Join-Path $Dir 'stats.txt'
 $syncPath = Join-Path $Dir '.last-sync'
 
+# Decide cutoff: -Since > .last-sync (unless -Full) > nothing (initial seed via -n)
+$sinceDate = $null
+if ($Since) {
+  $sinceDate = $Since
+  Write-Host "[refresh] mode: explicit -Since $sinceDate" -ForegroundColor DarkCyan
+} elseif (-not $Full -and (Test-Path $syncPath)) {
+  $lastSync = (Get-Content $syncPath -Raw -Encoding UTF8).Trim()
+  # .last-sync stores "yyyy-MM-dd HH:mm:ss". wx-cli --since takes a date,
+  # so split off the date portion.
+  if ($lastSync -match '^(\d{4}-\d{2}-\d{2})') {
+    $sinceDate = $matches[1]
+    Write-Host "[refresh] mode: incremental since $sinceDate" -ForegroundColor DarkCyan
+  } else {
+    Write-Warning "[refresh] .last-sync file exists but unparseable: '$lastSync' — falling back to -n $N"
+  }
+} elseif ($Full) {
+  Write-Host "[refresh] mode: -Full (re-pull last $N)" -ForegroundColor DarkCyan
+} else {
+  Write-Host "[refresh] mode: initial seed (last $N messages)" -ForegroundColor DarkCyan
+}
+
 # 1. Export chat
-Write-Host "[refresh] exporting chat ($N messages) -> $chatPath" -ForegroundColor Cyan
-wx export $Name -n $N --format markdown -o $chatPath
+if ($sinceDate) {
+  Write-Host "[refresh] exporting chat (since $sinceDate) -> $chatPath" -ForegroundColor Cyan
+  wx export $Name --since $sinceDate --format markdown -o $chatPath
+} else {
+  Write-Host "[refresh] exporting chat ($N messages) -> $chatPath" -ForegroundColor Cyan
+  wx export $Name -n $N --format markdown -o $chatPath
+}
 # Note: wx.exe stdout sometimes shows as RemoteException in PowerShell — that's a
 # PowerShell quirk, not a real error. Check $LASTEXITCODE, not $?.
 if ($LASTEXITCODE -ne 0) {
@@ -71,10 +117,14 @@ if ($LASTEXITCODE -ne 0) {
   exit $LASTEXITCODE
 }
 
-# 2. SNS feed (optional)
+# 2. SNS feed (optional). Also use --since when available.
 if (-not $SkipSns) {
   Write-Host "[refresh] pulling SNS feed -> $snsPath" -ForegroundColor Cyan
-  $sns = wx sns-feed --user $Name -n $SnsN --json 2>&1
+  if ($sinceDate) {
+    $sns = wx sns-feed --user $Name --since $sinceDate --json 2>&1
+  } else {
+    $sns = wx sns-feed --user $Name -n $SnsN --json 2>&1
+  }
   if ($LASTEXITCODE -eq 0) {
     $sns | Out-File $snsPath -Encoding utf8
   } else {
@@ -82,7 +132,7 @@ if (-not $SkipSns) {
   }
 }
 
-# 3. Stats
+# 3. Stats (always full — wx stats has its own time range; we just snapshot it)
 Write-Host "[refresh] computing stats -> $statsPath" -ForegroundColor Cyan
 wx stats $Name | Out-File $statsPath -Encoding utf8
 
