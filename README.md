@@ -202,6 +202,31 @@ Writes to `topics/<slug>/members.json`, `topics/<slug>/chat.<ext>`, and `topics/
 wx search "桌游" -n 500 --json | Out-File topics\boardgame\search.json -Encoding utf8
 ```
 
+### Pull attachments (PDFs / images / files) from a chat
+
+**Windows (PowerShell)**
+
+```powershell
+# List attachments
+.\tools\attachments.ps1 -Name "Alice" -Kind file -Since "2026-05-01"
+
+# Extract everything matching the filter
+.\tools\attachments.ps1 -Name "Alice" -Kind file -Since "2026-05-01" -ExtractAll -Out "projects/acme-launch/raw"
+
+# Extract specific ids
+.\tools\attachments.ps1 -Name "Alice" -Extract "att_abc","att_def" -Out "projects/acme-launch/raw"
+```
+
+**macOS / Linux (bash)**
+
+```bash
+./tools/attachments.sh --name "Alice" --kind file --since 2026-05-01
+./tools/attachments.sh --name "Alice" --kind file --since 2026-05-01 --extract-all --out projects/acme-launch/raw
+./tools/attachments.sh --name "Alice" --extract "att_abc,att_def" --out projects/acme-launch/raw
+```
+
+Wraps `wx attachments` (list) + `wx extract` (decrypt + save). Two modes: list (default) and extract (when `-Extract`/`--extract` or `-ExtractAll`/`--extract-all` is given). Useful for pulling PDFs from a boss-contact into a project workspace before running `task-extract.ps1`.
+
 ### Extract text from a PDF (for project research)
 
 ```powershell

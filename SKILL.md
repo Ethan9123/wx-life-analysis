@@ -127,15 +127,16 @@ Single most actionable target: **echo-reply detection** ("X 看起来挺 X 啊" 
 │   ├── subtext-reading.md
 │   └── task-extract.md
 ├── tools/
-│   ├── extract-pdf.js          PDF text extraction (Node + pdf-parse)
-│   ├── contacts.ps1 / .sh      fuzzy contact lookup (verify exact name before refresh)
-│   ├── refresh.ps1 / .sh       pull chat + SNS + stats for one contact (incremental)
-│   ├── refresh-group.ps1 / .sh pull a group chat into topics/<slug>/
-│   ├── status.ps1 / .sh        one-line status per contact
-│   ├── digest.ps1              unread incremental snapshot since last session
-│   ├── warmth.ps1 / .sh        SNS engagement on your posts (warmth gauge)
-│   ├── self-mirror.ps1         quantify own chat habits
-│   └── task-extract.ps1        first-pass TODO candidate extractor
+│   ├── extract-pdf.js           PDF text extraction (Node + pdf-parse)
+│   ├── contacts.ps1 / .sh       fuzzy contact lookup (verify exact name before refresh)
+│   ├── refresh.ps1 / .sh        pull chat + SNS + stats for one contact (incremental)
+│   ├── refresh-group.ps1 / .sh  pull a group chat into topics/<slug>/
+│   ├── attachments.ps1 / .sh    list / extract chat attachments (PDFs, images, files)
+│   ├── status.ps1 / .sh         one-line status per contact
+│   ├── digest.ps1               unread incremental snapshot since last session
+│   ├── warmth.ps1 / .sh         SNS engagement on your posts (warmth gauge)
+│   ├── self-mirror.ps1          quantify own chat habits
+│   └── task-extract.ps1         first-pass TODO candidate extractor
 ├── people/_template/        profile.md scaffold (with full YAML schema)
 ├── projects/_template/      notes.md scaffold
 └── topics/                  cross-chat keyword search dumps (gitignored)

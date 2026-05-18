@@ -64,6 +64,9 @@ You'll know because `people/<name>/chat.md` and `projects/<name>/notes.md` will 
 ### Workflow for a project
 
 1. Source materials (PDFs, docs) go in `projects/<name>/` (gitignored).
+1.5 If a stakeholder is sending project files via WeChat, run
+    `tools/attachments.ps1 -Name "<task-giver>" -Kind file -Since "<date>" -ExtractAll -Out "projects/<name>/raw"`
+    to bulk-decrypt every file they've sent into the project workspace.
 2. Use `tools/extract-pdf.js` for text extraction.
 2.5 If work mainly happens in a group chat, run `tools/refresh-group.ps1 -Name "研发群" -Slug "rd-group"` first to populate `topics/<slug>/chat.json` + `members.json`.
 2.6 Run `tools/task-extract.ps1 -Person "<task-giver-slug>" -Project "<project-slug>"` for first-pass candidate filtering before full read.
@@ -111,6 +114,10 @@ $OutputEncoding = [System.Text.Encoding]::UTF8; [Console]::OutputEncoding = [Sys
 # Warmth gauge — who's liking/commenting on your own SNS
 .\tools\warmth.ps1
 .\tools\warmth.ps1 -IncludeRead -N 300
+
+# Attachments (PDFs / images / files) sent in chat
+.\tools\attachments.ps1 -Name "张三" -Kind file -Since "2026-05-01"
+.\tools\attachments.ps1 -Name "张三" -Kind file -Since "2026-05-01" -ExtractAll -Out "projects/<slug>/raw"
 
 # Self mirror report (your own chat habits)
 .\tools\self-mirror.ps1

@@ -55,6 +55,7 @@ End users clone this repo, run scripts locally to pull their own WeChat data int
 │   ├── contacts.ps1 / .sh          fuzzy contact lookup (verify before refresh)
 │   ├── refresh.ps1 / .sh           incremental chat + SNS + stats pull
 │   ├── refresh-group.ps1 / .sh
+│   ├── attachments.ps1 / .sh       list / extract chat attachments (PDFs, images, files)
 │   ├── status.ps1 / .sh
 │   ├── self-mirror.ps1
 │   ├── task-extract.ps1
