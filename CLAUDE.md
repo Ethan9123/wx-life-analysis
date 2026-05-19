@@ -110,6 +110,7 @@ $OutputEncoding = [System.Text.Encoding]::UTF8; [Console]::OutputEncoding = [Sys
 .\tools\digest.ps1
 .\tools\digest.ps1 -Write
 .\tools\digest.ps1 -Since "2026-05-10"
+# (macOS / Linux: ./tools/digest.sh --write --since 2026-05-10)
 
 # Warmth gauge — who's liking/commenting on your own SNS
 .\tools\warmth.ps1

@@ -403,6 +403,20 @@ The agent files (`AGENTS.md`, `CLAUDE.md`) describe these flows in machine-reada
 
 ---
 
+## Project status
+
+- **Current version**: see [`CHANGELOG.md`](CHANGELOG.md) (`v0.1.0` = the
+  first tagged release, captures everything in this README at the time
+  of tag)
+- **Security policy**: [`SECURITY.md`](SECURITY.md) — vulnerability
+  disclosure path + threat model
+- **Contributing**: read `AGENTS.md` § Hard rules first. Open an issue
+  with the `codex-ready` label if you want an autonomous agent to work
+  on it. Privacy checklist in `.github/pull_request_template.md` is
+  mandatory.
+
+---
+
 ## Privacy & legal
 
 - **All data stays on your machine.** This repo's `.gitignore` actively blocks `people/*`, `projects/*`, `topics/*`, `*.db`, `*.pdf`, `*.docx`, etc. from being committed.

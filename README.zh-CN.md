@@ -179,6 +179,14 @@ do now: <一个具体动作，比如 "保持沉默。不要 ping。等 3+ 天。
 
 ---
 
+## 项目状态
+
+- **当前版本**：见 [`CHANGELOG.md`](CHANGELOG.md)（`v0.1.0` 是首个 tag，捕获本 README 在打 tag 时刻的全部内容）
+- **安全策略**：[`SECURITY.md`](SECURITY.md) —— 漏洞披露路径 + 威胁模型 T1-T5
+- **参与贡献**：先读 `AGENTS.md` 的 "Hard rules" 一节。想让 autonomous agent 接手，打 `codex-ready` 标签的 issue。`.github/pull_request_template.md` 里的隐私 checklist 是强制的。
+
+---
+
 ## 隐私 + 法律
 
 ### 永远不会被提交的内容（多层防护）
